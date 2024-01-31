@@ -3,13 +3,9 @@ import { borrarDatos, crearContenidoEnSection, seleccionElementos, imxsGuardarOE
 function preparandoDatos(datos) {
 
   crearContenidoEnSection(datos); 
-
-        borrarDatos(seleccionElementos('.borrar'));
-
-        
-        imxsGuardarOEditar('guardar');
-
-        imxsGuardarOEditar('editar');
+  borrarDatos(seleccionElementos('.borrar'));
+  imxsGuardarOEditar('guardar');
+  imxsGuardarOEditar('editar');
 }//preparandoDatos(datos)
 
 
