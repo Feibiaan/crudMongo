@@ -36,7 +36,6 @@ function crearDiv(documento) {
 }
 
 function crearInput(documento, div) {
-
   let tamanhio = Object.keys(documento).length;
   let elementos = Object.values(documento);
   let claves = Object.keys(documento);
@@ -86,8 +85,8 @@ const seleccionElementos = (etiqueta) => {
   return _etiqueta;
 };
 
-function imxsGuardarOEditar(_imxs) {
-  let nomes = [];
+function seleccionarInput() {
+  const nomes = [];
   for (let _input of seleccionElementos("input")) {
     _input.addEventListener("click", (e) => {
       e.target.removeAttribute("readonly");
@@ -97,63 +96,78 @@ function imxsGuardarOEditar(_imxs) {
       e.target.style.color = "white";
     });
   }
+  return nomes;
+}
+
+function seleccionarInputConBotonEditar(nomes) {
+  let _imxsEditar = seleccionElementos(".editar");
+  for (let contador = 0; contador < _imxsEditar.length; contador++) {
+    _imxsEditar[contador].addEventListener("click", (e) => {
+      nomes[0] = parseInt(e.target.parentElement.getAttribute("id"));
+      nomes.push(e.target.getAttribute("name"));
+      let elementosARecorrer = e.target.parentElement.childNodes;
+      for (let elemento of elementosARecorrer) {
+        if (elemento.getAttribute("readonly") === "true") {
+          elemento.style.backgroundColor = "green";
+          elemento.style.color = "white";
+          elemento.removeAttribute("readonly");
+        }
+      }
+    });
+  }
+}
+
+function modificarValorInput(e, nomes) {
+  let idPulsado = e.target.parentElement.getAttribute("id");
+  if (idPulsado == nomes[0]) {
+    let _inputArray = e.target.parentElement.querySelectorAll("input");
+    let tamanaioDiv = e.target.parentElement.querySelectorAll("input").length;
+    let contador2 = 0;
+    let tamanioNomes = nomes.length;
+
+    for (contador2; contador2 < tamanaioDiv; contador2++) {
+      let contadorNomes = 1;
+
+      for (contadorNomes; contadorNomes < tamanioNomes; contadorNomes++) {
+        let atributoName = _inputArray[contador2].getAttribute(`name`);
+        let atributoModificado = nomes[contadorNomes];
+        if (atributoName == atributoModificado) {
+          // console.log("atributoName ", atributoName);
+          // console.log("atributoModificado ", atributoModificado);
+          // console.log("idPulsado: ", idPulsado);
+          // console.log(
+          //   "_inputArray[contador2].value ",
+          //   _inputArray[contador2].value
+          // );
+          objetoDatos.campos[`${atributoName}`] = _inputArray[contador2].value;
+          objetoDatos.id = idPulsado;
+        }
+      }
+    }
+    console.log("dato: ", objetoDatos);
+    seleccionTarefaARealizar(objetoDatos.id, "actualizar", objetoDatos);
+  }
+}
+
+function pulsarBotonGuardar(nomes) {
+  let _imxsGuardar = seleccionElementos(".guardar");
+
+  for (let contador1 = 0; contador1 < _imxsGuardar.length; contador1++) {
+    _imxsGuardar[contador1].addEventListener("click", (e) => {
+      modificarValorInput(e, nomes);
+    });
+  }
+}
+
+function imxsGuardarOEditar(_imxs) {
+  let nomes = seleccionarInput();
 
   if (seleccionElementos(".guardar")[0].getAttribute("class") === _imxs) {
-    let _imxsGuardar = seleccionElementos(".guardar");
-
-    for (let contador = 0; contador < _imxsGuardar.length; contador++) {
-      _imxsGuardar[contador].addEventListener("click", (e) => {
-        let idPulsado = e.target.parentElement.getAttribute("id");
-        if (idPulsado == nomes[0]) {
-          let _inputArray = e.target.parentElement.querySelectorAll("input");
-          let tamanaioDiv =
-            e.target.parentElement.querySelectorAll("input").length;
-          let contador = 0;
-          let tamanioNomes = nomes.length;
-
-          for (contador; contador < tamanaioDiv; contador++) {
-            let contadorNomes = 1;
-
-            for (contadorNomes; contadorNomes < tamanioNomes; contadorNomes++) {
-              let atributoName = _inputArray[contador].getAttribute(`name`);
-              let atributoModificado = nomes[contadorNomes];
-              if (atributoName == atributoModificado) {
-                console.log("atributoName ", atributoName);
-                console.log("atributoModificado ", atributoModificado);
-                console.log("idPulsado: ", idPulsado);
-                console.log(
-                  "_inputArray[contador].value ",
-                  _inputArray[contador].value
-                );
-                objetoDatos.campos[`${atributoName}`] =
-                  _inputArray[contador].value;
-                objetoDatos.id = idPulsado;
-              }
-            }
-          }
-          console.log("dato: ", objetoDatos);
-          seleccionTarefaARealizar(objetoDatos.id, "actualizar", objetoDatos);
-        }
-      });
-    }
+    pulsarBotonGuardar(nomes);
   }
 
   if (seleccionElementos(".editar")[0].getAttribute("class") === _imxs) {
-    let _imxsEditar = seleccionElementos(".editar");
-    for (let contador = 0; contador < _imxsEditar.length; contador++) {
-      _imxsEditar[contador].addEventListener("click", (e) => {
-        nomes[0] = parseInt(e.target.parentElement.getAttribute("id"));
-        nomes.push(e.target.getAttribute("name"));
-        let elementosARecorrer = e.target.parentElement.childNodes;
-        for (let elemento of elementosARecorrer) {
-          if (elemento.getAttribute("readonly") === "true") {
-            elemento.style.backgroundColor = "green";
-            elemento.style.color = "white";
-            elemento.removeAttribute("readonly");
-          }
-        }
-      });
-    }
+    seleccionarInputConBotonEditar(nomes);
   }
 }
 
