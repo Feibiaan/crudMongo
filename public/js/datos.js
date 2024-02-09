@@ -1,7 +1,7 @@
 const metodos = {
     post: {
         metodo: 'POST',
-        endpoint: ''
+        endpoint: 'meterdatos'
     },
     get: {
         metodo: 'GET',

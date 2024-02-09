@@ -4,17 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./js/index.js" async type="module"></script>
+    <script src="./js/index_formularios.js" async type="module"></script>
     <link rel="stylesheet" href="./css/reset_estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./css/estilos_logueo.css">
+    <!-- <link rel="import" href="./html/admin.html"> -->
 </head>
 <body>
-    <button id="pedirDatos">Pedir Datos</button>
-    <section>
-        <div class="lista"></div>
-    </section>
+    <a href="/administrador">Ir a admin</a>
+
+    <!-- <form action="/logueo" method="post"> -->
+        <div>
+            <h3>Logueo</h3>
+            <form id="datosForm">
+                <input name="nombre" type="text" placeholder="Nombre" />
+                <input name="pwd" type="password" placeholder="Password">
+                <!-- <input type="submit" value="envio"> -->
+                <input id="envioForm" type="submit" value="Envio">
+            </form>
+        </div>
+    <div>
+        <h3>Registro</h3>
+        <form id="formRegistro">
+            <input required name="nombre" type="text" placeholder="Nombre" />
+            <input required name="pwd" type="password" placeholder="Password">
+            <!-- <input type="submit" value="envio"> -->
+            <input id="registrarUser" type="submit" value="Envio">
+        </form>
+    </div>
 </body>
 </html>

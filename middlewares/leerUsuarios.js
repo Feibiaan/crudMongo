@@ -3,11 +3,11 @@ const { MongoClient } = require("mongodb");
 const url = process.env.URLMONGO;
 const client = new MongoClient(url);
 const database = process.env.BBDD;
-const coleccion = process.env.COLECCION;
+const coleccion = process.env.COLECCIONDOS;
 
 // LEER DATOS 
 
-async function fLerDatos(req,res) {
+async function fLeerUsuarios(req,res) {
     let envio = {};
     try {
         await client.connect();
@@ -30,4 +30,4 @@ async function fLerDatos(req,res) {
         res.send(envio);
     }
 }
-module.exports = {fLerDatos}; 
+module.exports = {fLeerUsuarios}; 

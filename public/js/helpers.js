@@ -65,18 +65,20 @@ function crearInput(documento, div) {
   // return input;
 }
 
-function crearContenidoEnSection(datos) {
+function crearContenidoEnSection(datos, dondeEstoy) {
   datos.documentos.map((documento) => {
     let _div = crearDiv(documento);
     crearInput(documento, _div);
 
-    let imax = ["borrar", "editar", "guardar"];
+    if(dondeEstoy === "admin"){
+      let imax = ["borrar", "editar", "guardar"];
     for (let imaxenes of imax) {
       let imx = document.createElement("img");
       imx.setAttribute("src", `./assets/${imaxenes}.png`);
       imx.setAttribute("class", `${imaxenes}`);
       _div.append(imx);
     }
+  }
   });
 }
 
@@ -94,6 +96,7 @@ function seleccionarInput() {
       nomes.push(e.target.getAttribute("name"));
       e.target.style.backgroundColor = "blue";
       e.target.style.color = "white";
+      console.log('nomes ?:',nomes)
     });
   }
   return nomes;
